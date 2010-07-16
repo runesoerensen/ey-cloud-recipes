@@ -43,6 +43,7 @@
 #uncomment to run the resque recipe
 require_recipe "resque"
 
+require_recipe "couchdb"
 #uncomment to run the redis recipe
 #require_recipe "redis"
 
