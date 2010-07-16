@@ -1,8 +1,8 @@
 <% (@num_workers || 1).times do |num| %>
-check process resque_<%= @app_name %>_<%= num %>
-  with pidfile /var/run/engineyard/resque/<%= @app_name %>/resque_<%= num %>.pid
-  start program = "/engineyard/bin/resque <%= @app_name %> start <%= @rails_env %> resque_<%= num %>.conf"
-  stop program = "/engineyard/bin/resque <%= @app_name %> stop <%= @rails_env %> resque_<%= num %>.conf"
-  if totalmem is greater than 300 MB for 2 cycles then restart # eating up memory?
-  group <%= @app_name %>_resque
+	check process resque_worker_<%= num %>
+  	with pidfile /data/<%= @app_name %>/current/tmp/pids/resque_worker_<%= num %>.pid
+  	start program = "/bin/sh -c 'cd /data/<%= @app_name %>/current; RAILS_ENV=<%= @rails_env %> QUEUE=* VERBOSE=1 nohup rake resque:work& &> log/resque_worker_<%= num %>.log && echo $! > tmp/pids/resque_worker_<%= num %>.pid'" as uid deploy and gid deploy
+  	stop program = "/bin/sh -c 'cd /data/<%= @app_name %>/current && kill -s QUIT `cat tmp/pids/resque_worker_<%= num %>.pid` && rm -f tmp/pids/resque_worker_<%= num %>.pid; exit 0;'"
+  	if totalmem is greater than 300 MB for 10 cycles then restart  # eating up memory?
+  	group resque_workers
 <% end %>
