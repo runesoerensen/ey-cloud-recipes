@@ -17,3 +17,10 @@ template "/data/monit.d/couchdb_util.monitrc" do
   mode 0644
   source "couchdb.monitrc.erb"
 end
+
+template "/etc/couchdb/local.ini" do
+  owner node[:owner_name]
+  group node[:owner_name]
+  mode 0644
+  source "couchdb_conf.erb"
+end
