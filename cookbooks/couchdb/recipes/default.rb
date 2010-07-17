@@ -17,10 +17,12 @@ template "/data/monit.d/couchdb_util.monitrc" do
   mode 0644
   source "couchdb.monitrc.erb"
   variables({
-    :profile => '1',
+    :profile => '3',
   })
 end
 
-execute "monit reload" do
+execute "start-couchdb" do
+  command "/etc/init.d/couchdb start"
   action :run
+  not_if "/etc/init.d/couchdb status"
 end
