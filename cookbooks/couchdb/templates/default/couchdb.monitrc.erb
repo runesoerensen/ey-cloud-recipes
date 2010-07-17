@@ -1,5 +1,5 @@
 check process couchdb-<%= @profile %>
-with pidfile /var/run/couchdb.pid
-  start program = "/usr/bin/couchdb start"
-  stop program = "/usr/bin/couchdb stop"
+with pidfile /var/run/couchdb/couchdb.pid
+  start program = "/usr/bin/couchdb start -b"
+  stop program = "/usr/bin/couchdb stop -d"
   group couchdb_util
