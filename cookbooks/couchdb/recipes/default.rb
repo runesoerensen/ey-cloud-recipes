@@ -10,3 +10,17 @@ directory "/var/run/couchdb" do
   mode 0755
   recursive true
 end
+
+template "/data/monit.d/couchdb_util.monitrc" do
+  owner 'root'
+  group 'root'
+  mode 0644
+  source "couchdb.monitrc.erb"
+  variables({
+    :profile => '1',
+  })
+end
+
+execute "monit reload" do
+  action :run
+end
