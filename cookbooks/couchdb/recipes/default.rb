@@ -16,13 +16,10 @@ template "/data/monit.d/couchdb_util.monitrc" do
   group 'root'
   mode 0644
   source "couchdb.monitrc.erb"
-  variables({
-    :profile => '3',
-  })
 end
 
 execute "start-couchdb" do
-  command "/etc/init.d/couchdb start"
+  command "/usr/bin/couchdb start -b"
   action :run
-  not_if "/etc/init.d/couchdb status"
+  not_if "/usr/bin/couchdb status"
 end
