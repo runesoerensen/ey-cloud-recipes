@@ -7,7 +7,7 @@ end
 directory "/var/run/couchdb" do
   owner 'couchdb'
   group 'couchdb'
-  mode 0755
+  mode 0644
   recursive true
 end
 
