@@ -1,6 +1,6 @@
 package "dev-db/couchdb" do
   package_name "dev-db/couchdb"
-  action :install
+  action :upgrade
   version "0.9.1"
 end
 
