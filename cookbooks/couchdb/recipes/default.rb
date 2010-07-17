@@ -17,9 +17,3 @@ template "/data/monit.d/couchdb_util.monitrc" do
   mode 0644
   source "couchdb.monitrc.erb"
 end
-
-execute "start-couchdb" do
-  command "/usr/bin/couchdb start -b"
-  action :run
-  not_if "/usr/bin/couchdb status"
-end
